@@ -1,0 +1,36 @@
+version: "3.7"
+
+services:
+  postgres:
+    image: postgres
+    container_name: product-engine-postgres
+    restart: always
+    tty: true
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - '54323:5432'
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=product_engine
+    networks:
+      - default
+
+  redis:
+    image: redis:alpine
+    container_name: product-engine-redis
+    restart: always
+    ports:
+      - '63793:6379'
+    expose:
+      - 6379
+    networks:
+      - default
+
+volumes:
+  db_data: {}
+
+networks:
+  default:
+    driver: bridge

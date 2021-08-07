@@ -8,9 +8,10 @@ export class Product1628227327891 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'varchar',
+            type: 'uuid',
             isPrimary: true,
             generationStrategy: 'uuid',
+            default: 'uuid_generate_v4()',
           },
           {
             name: 'title',
@@ -24,19 +25,19 @@ export class Product1628227327891 implements MigrationInterface {
           },
           {
             name: 'created_at',
-            type: 'datetime',
+            type: 'timestamp',
             default: 'now()',
             isNullable: false,
           },
           {
             name: 'updated_at',
-            type: 'datetime',
+            type: 'timestamp',
             default: 'now()',
             isNullable: false,
           },
           {
             name: 'deleted_at',
-            type: 'datetime',
+            type: 'timestamp',
             default: null,
           },
         ],
