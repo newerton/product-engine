@@ -1,5 +1,5 @@
-import { Logger } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
+import { ClassSerializerInterceptor, Logger } from '@nestjs/common';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { AppModule } from './app.module';
 
@@ -16,6 +16,7 @@ async function bootstrap() {
       },
     },
   );
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
   await app.listen();
   logger.log('product-engine is running');
 }

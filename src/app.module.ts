@@ -7,9 +7,10 @@ import { AppExceptionFilter } from './filters/app-exception.filter';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import config from 'ormconfig';
+import { Product } from './entities/product.entity';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(config)],
+  imports: [TypeOrmModule.forRoot(config), TypeOrmModule.forFeature([Product])],
   controllers: [AppController],
   providers: [
     AppService,

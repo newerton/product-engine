@@ -16,29 +16,46 @@ export class Product1628227327891 implements MigrationInterface {
           {
             name: 'title',
             type: 'varchar',
-            isNullable: false,
           },
           {
             name: 'description',
             type: 'text',
-            isNullable: false,
+          },
+          {
+            name: 'price',
+            type: 'decimal',
+            precision: 12,
+            scale: 2,
+          },
+          {
+            name: 'discount_percentage',
+            type: 'smallint',
+            default: 0,
+          },
+          {
+            name: 'warranty',
+            type: 'varchar',
+          },
+          {
+            name: 'available',
+            type: 'boolean',
+            default: false,
           },
           {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',
-            isNullable: false,
           },
           {
             name: 'updated_at',
             type: 'timestamp',
             default: 'now()',
-            isNullable: false,
           },
           {
             name: 'deleted_at',
             type: 'timestamp',
             default: null,
+            isNullable: true,
           },
         ],
       }),
