@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: nestjs-k8s-namespace
+  name: redis
+spec:
+  clusterIP: None
+  selector:
+    app: redis
+  ports:
+    - name: redis
+      port: 6379
+      targetPort: 6379
+      protocol: TCP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: nestjs-k8s-namespace
+  name: redis
+spec:
+  selector:
+    matchLabels:
+      app: redis
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+        - name: redis
+          image: redis:6.2.5-alpine
+          ports:
+            - containerPort: 6379
+          args: ["--requirepass", "$(REDIS_PASSWORD)"]
+          env:
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: product-engine-k8s-secret
+                  key: REDIS_PASSWORD

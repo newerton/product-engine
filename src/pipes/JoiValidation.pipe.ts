@@ -1,5 +1,5 @@
 import * as JoiBase from 'joi';
-import { PipeTransform, Injectable } from '@nestjs/common';
+import { PipeTransform, Injectable, HttpStatus } from '@nestjs/common';
 import { CreateSchema } from '../schemas/joi.create.schema.factory';
 import { JoiValidationException } from 'src/app.exceptions';
 
@@ -16,6 +16,8 @@ export class JoiValidationPipe implements PipeTransform {
       await this.schema.validateAsync(message);
     } catch (err) {
       const errors = {
+        statusCode: HttpStatus.UNPROCESSABLE_ENTITY,
+        error: JoiValidationException.name,
         message: err?.message || err,
         details: err?.details,
       };

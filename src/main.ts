@@ -1,23 +1,36 @@
-import { ClassSerializerInterceptor, Logger } from '@nestjs/common';
-import { NestFactory, Reflector } from '@nestjs/core';
+import { Logger } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { AppModule } from './app.module';
 
 const logger = new Logger('Main');
 
 async function bootstrap() {
-  const app = await NestFactory.createMicroservice<MicroserviceOptions>(
-    AppModule,
-    {
-      transport: Transport.TCP,
-      options: {
-        host: 'localhost',
-        port: 3003,
+  const app = await NestFactory.create(AppModule);
+  app.connectMicroservice<MicroserviceOptions>({
+    transport: Transport.TCP,
+    options: {
+      host: '0.0.0.0',
+      port: 3003,
+    },
+  });
+  app.connectMicroservice<MicroserviceOptions>({
+    transport: Transport.KAFKA,
+    options: {
+      client: {
+        clientId: 'product',
+        brokers: ['host.docker.internal:9094'],
+      },
+      consumer: {
+        groupId: 'product-consumer',
+        allowAutoTopicCreation: true,
       },
     },
-  );
-  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
-  await app.listen();
+  });
+
+  await app.startAllMicroservices();
+  await app.listen(3003);
   logger.log('product-engine is running');
 }
+
 bootstrap();

@@ -6,3 +6,7 @@ export class CreateProductDto {
   warranty: string;
   available: boolean;
 }
+
+export class KafkaCreateProductDto {
+  value: CreateProductDto;
+}

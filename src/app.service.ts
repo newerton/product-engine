@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { ClientKafka } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { BadRequestException } from './app.exceptions';
@@ -8,8 +9,8 @@ import { Product } from './entities/product.entity';
 @Injectable()
 export class AppService {
   constructor(
-    @InjectRepository(Product)
-    private repository: Repository<Product>,
+    @InjectRepository(Product) private repository: Repository<Product>,
+    @Inject('PRODUCT_SERVICE_KAFKA') private readonly clientKafka: ClientKafka,
   ) {}
 
   findAll(): Promise<Product[]> {
@@ -21,10 +22,15 @@ export class AppService {
   }
 
   async create(data: CreateProductDto): Promise<Product | undefined> {
-    const { id } = await this.repository.save(data);
-    if (id) {
-      return await this.repository.findOne({ id });
-    } else {
+    try {
+      const { id } = await this.repository.save(data);
+      if (id) {
+        this.clientKafka.emit('product_created', data);
+        return await this.repository.findOne({ id });
+      } else {
+        throw new BadRequestException({ error: 'Product not created' });
+      }
+    } catch (err) {
       throw new BadRequestException({ error: 'Product not created' });
     }
   }
