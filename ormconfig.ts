@@ -12,15 +12,6 @@ const config: TypeOrmModuleOptions = {
   database: process.env.DB_DATABASE,
   logging: process.env.NODE_ENV === 'development',
   autoLoadEntities: true,
-  cache: {
-    type: 'redis',
-    options: {
-      legacyMode: true,
-      host: process.env.REDIS_HOST,
-      port: process.env.REDIS_PORT,
-      password: process.env.REDIS_PASSWORD,
-    },
-  },
   entities: ['./dist/**/*.entity{.ts,.js}'],
   migrations: ['./dist/**/migrations/*{.ts,.js}'],
   cli: {
