@@ -1,7 +1,7 @@
 apiVersion: skaffold/v1
 kind: Config
 metadata:
-  name: dev-k8s-product-engine
+  name: mktplace-develop-product-engine
 build:
   local:
     push: false
