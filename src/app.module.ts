@@ -1,13 +1,11 @@
 import { Module } from '@nestjs/common';
-import { APP_FILTER } from '@nestjs/core';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AppExceptionFilter } from './filters/app-exception.filter';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ClientsModule, Transport } from '@nestjs/microservices';
+import { Product } from './entities/product.entity';
 
 import config from 'ormconfig';
-import { Product } from './entities/product.entity';
-import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
   imports: [
@@ -33,12 +31,6 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
     ]),
   ],
   controllers: [AppController],
-  providers: [
-    AppService,
-    {
-      provide: APP_FILTER,
-      useClass: AppExceptionFilter,
-    },
-  ],
+  providers: [AppService],
 })
 export class AppModule {}

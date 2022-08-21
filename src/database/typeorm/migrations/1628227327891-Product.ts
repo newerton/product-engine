@@ -10,8 +10,8 @@ export class Product1628227327891 implements MigrationInterface {
             name: 'id',
             type: 'uuid',
             isPrimary: true,
+            isGenerated: true,
             generationStrategy: 'uuid',
-            default: 'uuid_generate_v4()',
           },
           {
             name: 'title',
@@ -44,12 +44,12 @@ export class Product1628227327891 implements MigrationInterface {
           {
             name: 'created_at',
             type: 'timestamp',
-            default: 'now()',
+            default: 'CURRENT_TIMESTAMP',
           },
           {
             name: 'updated_at',
             type: 'timestamp',
-            default: 'now()',
+            default: 'CURRENT_TIMESTAMP',
           },
           {
             name: 'deleted_at',
