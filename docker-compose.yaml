@@ -2,18 +2,19 @@ version: "3.7"
 
 services:
   postgres:
-    image: postgres
+    image: postgres:14
     container_name: product-engine-postgres
-    restart: always
-    tty: true
-    volumes:
-      - db_data:/var/lib/postgresql/data
     ports:
       - '54323:5432'
+    volumes:
+      - ./.docker/database/postgresql/data/:/var/lib/postgresql/data
+      - ./.docker/database/postgresql/initdb/:/docker-entrypoint-initdb.d
     environment:
+      - POSTGRES_MULTIPLE_DATABASES=product_engine
       - POSTGRES_USER=docker
       - POSTGRES_PASSWORD=docker
-      - POSTGRES_DB=product_engine
+    tmpfs:
+      - /var/lib/postgresql
     networks:
       - default
 
