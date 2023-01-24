@@ -1,17 +1,32 @@
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
-import { AppModule } from './app.module';
+import { ConfigurationInput, Lightship, createLightship } from 'lightship';
+
+import { ApiServerConfig } from '@core/@shared/infrastructure/config/env/api-server.config';
+
+import { MainModule } from './main.module';
 
 const logger = new Logger('Main');
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const configuration: ConfigurationInput = {
+    detectKubernetes: ApiServerConfig.ENV !== 'production' ? false : true,
+    gracefulShutdownTimeout: 30 * 1000,
+    port: ApiServerConfig.LIGHTSHIP_PORT,
+  };
+
+  const lightship: Lightship = await createLightship(configuration);
+
+  const app = await NestFactory.create(MainModule);
+
+  lightship.registerShutdownHandler(() => app.close());
+
   app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.TCP,
     options: {
       host: '0.0.0.0',
-      port: 3003,
+      port: ApiServerConfig.PORT,
     },
   });
   app.connectMicroservice<MicroserviceOptions>({
@@ -29,8 +44,12 @@ async function bootstrap() {
       },
     },
   });
+
   await app.startAllMicroservices();
-  logger.log('product-engine is running');
+
+  lightship.signalReady();
+
+  logger.log(`product-engine is running in port ${ApiServerConfig.PORT}`);
 }
 
 bootstrap();
