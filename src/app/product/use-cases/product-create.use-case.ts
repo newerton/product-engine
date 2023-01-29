@@ -2,9 +2,10 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ClientKafka } from '@nestjs/microservices';
 
 import { ProductTypeORMRepository } from '@app/@common/infrastructure/persistence/database/typeorm/repository/product-typeorm.repository';
-import { ProductCreateInput } from '@app/dto/product-create.dto';
 import { Code } from '@core/@shared/domain/error/Code';
 import { Exception } from '@core/@shared/domain/exception/Exception';
+
+import { ProductCreateInput } from '../dto/product-create.dto';
 
 @Injectable()
 export class ProductCreateUseCase {

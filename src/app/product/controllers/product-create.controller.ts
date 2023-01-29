@@ -8,8 +8,8 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 
 import { RemoteProcedureCallExceptionFilter } from '@app/@common/application/exceptions/filter/rpc-exception.filter';
 import { JoiValidationPipe } from '@app/@common/application/pipes/joi-validation.pipe';
-import { ProductCreateInput } from '@app/dto/product-create.dto';
 
+import { ProductCreateInput } from '../dto/product-create.dto';
 import { ProductCreateUseCase } from '../use-cases/product-create.use-case';
 import { ProductCreateSchemaValidation } from '../validations/product-create.schema.validation';
 

@@ -7,8 +7,8 @@ import {
 import { MessagePattern, Payload } from '@nestjs/microservices';
 
 import { RemoteProcedureCallExceptionFilter } from '@app/@common/application/exceptions/filter/rpc-exception.filter';
-import { ProductFindAllControllerOutput } from '@app/dto/product-find-all.dto';
 
+import { ProductFindAllControllerOutput } from '../dto/product-find-all.dto';
 import { ProductFindAllUseCase } from '../use-cases/product-find-all.use-case';
 
 @Controller()
