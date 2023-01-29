@@ -9,9 +9,14 @@ import {
 import { Request, Response } from 'express';
 
 import { CoreApiResponse } from '@core/@shared/domain/api/CoreApiResponse';
-import { Code } from '@core/@shared/domain/error/Code';
+import { Code, CodeDescription } from '@core/@shared/domain/error/Code';
 import { Exception } from '@core/@shared/domain/exception/Exception';
 import { ApiServerConfig } from '@core/@shared/infrastructure/config/env/api-server.config';
+
+type HttpExceptionFilterProperties = Error &
+  CodeDescription & {
+    details: Array<{ [key: string]: string }>;
+  };
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
@@ -21,9 +26,14 @@ export class HttpExceptionFilter implements ExceptionFilter {
 
     let errorResponse: CoreApiResponse<unknown> = CoreApiResponse.error(
       Code.INTERNAL_ERROR.code,
+      Code.INTERNAL_ERROR.error,
       error.message,
     );
 
+    errorResponse = this.handleJSONException(
+      error as HttpExceptionFilterProperties,
+      errorResponse,
+    );
     errorResponse = this.handleNestError(error, errorResponse);
     errorResponse = this.handleCoreException(error, errorResponse);
 
@@ -37,7 +47,16 @@ export class HttpExceptionFilter implements ExceptionFilter {
       Logger.error(message);
     }
 
-    const status = errorResponse.code > 999 ? 400 : errorResponse.code;
+    const validRanges = [
+      [100, 511],
+      [1000, 1004],
+    ];
+    const validRange = validRanges.find(
+      ([start, end]) =>
+        start <= errorResponse.code && errorResponse.code <= end,
+    );
+    const status = validRange ? errorResponse.code : 500;
+
     response.status(status).json(errorResponse);
   }
 
@@ -46,8 +65,13 @@ export class HttpExceptionFilter implements ExceptionFilter {
     errorResponse: CoreApiResponse<unknown>,
   ): CoreApiResponse<unknown> {
     if (error instanceof HttpException) {
+      const codeArray = Object.values(Code);
+      const errorMessage = codeArray.find(
+        (item) => item.code === error.getStatus(),
+      );
       errorResponse = CoreApiResponse.error(
-        error.getStatus(),
+        error.getStatus() < 100 ? Code.INTERNAL_ERROR.code : error.getStatus(),
+        errorMessage?.error || Code.INTERNAL_ERROR.error,
         error.message,
         null,
       );
@@ -73,6 +97,23 @@ export class HttpExceptionFilter implements ExceptionFilter {
         error.error,
         error.message,
         error.data ? [error.data] : [],
+      );
+    }
+
+    return errorResponse;
+  }
+
+  private handleJSONException(
+    error: HttpExceptionFilterProperties,
+    errorResponse: CoreApiResponse<unknown>,
+  ): CoreApiResponse<unknown> {
+    if (typeof error === 'object') {
+      const code = typeof error.code === 'number' ? error.code : 500;
+      errorResponse = CoreApiResponse.error(
+        code,
+        error.error,
+        error.message,
+        error.details ? error.details : [],
       );
     }
 

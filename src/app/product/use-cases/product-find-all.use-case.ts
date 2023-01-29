@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 
 import { ProductTypeORMRepository } from '@app/@common/infrastructure/persistence/database/typeorm/repository/product-typeorm.repository';
+
 import {
   ProductFindAllUseCaseInput,
   ProductFindAllUseCaseOutput,
-} from '@app/dto/product-find-all.dto';
+} from '../dto/product-find-all.dto';
 
 @Injectable()
 export class ProductFindAllUseCase {
