@@ -21,13 +21,13 @@ export class ProductCreateUseCase {
         this.clientKafka.emit('product_created', data);
       } else {
         throw Exception.new({
-          code: Code.BAD_REQUEST,
+          code: Code.BAD_REQUEST.code,
           overrideMessage: 'Product not created',
         });
       }
     } catch (err) {
       throw Exception.new({
-        code: Code.BAD_REQUEST,
+        code: Code.BAD_REQUEST.code,
         overrideMessage: 'Product not created',
       });
     }

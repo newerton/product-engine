@@ -11,28 +11,28 @@ export class KeycloakUseCaseException {
       const errorResponse = this.error.response;
       if (errorResponse.status === 409) {
         throw Exception.new({
-          code: Code.CONFLICT,
+          code: Code.CONFLICT.code,
           overrideMessage: errorResponse.data.errorMessage,
         });
       }
 
       if (errorResponse?.data?.errorMessage) {
         throw Exception.new({
-          code: Code.BAD_REQUEST,
+          code: Code.BAD_REQUEST.code,
           overrideMessage: errorResponse.data.errorMessage,
         });
       }
     }
 
-    if (this.error.getError()) {
+    if (this.error.message) {
       throw Exception.new({
-        code: Code.BAD_REQUEST,
-        overrideMessage: this.error.getError(),
+        code: Code.BAD_REQUEST.code,
+        overrideMessage: this.error.message,
       });
     }
 
     throw Exception.new({
-      code: Code.UNAUTHORIZED,
+      code: Code.UNAUTHORIZED.code,
       overrideMessage: this.error,
     });
   }

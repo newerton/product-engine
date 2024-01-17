@@ -7,7 +7,7 @@ import { Exception } from '@core/@shared/domain/exception/Exception';
 export class ProductUpdateUseCase {
   execute(): void {
     throw Exception.new({
-      code: Code.BAD_REQUEST,
+      code: Code.BAD_REQUEST.code,
       overrideMessage: 'Not implemented',
     });
   }
