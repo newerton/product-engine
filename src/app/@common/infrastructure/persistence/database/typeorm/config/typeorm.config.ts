@@ -9,13 +9,13 @@ import { DatabaseServerConfig } from '@core/@shared/infrastructure/config/env/da
 dotenv.config();
 
 const defaultConfig: DataSourceOptions = {
-  type: DatabaseServerConfig.DB_DIALECT as any,
-  host: DatabaseServerConfig.DB_HOST,
-  port: +(DatabaseServerConfig.DB_PORT || 3306),
-  username: DatabaseServerConfig.DB_USER,
-  password: DatabaseServerConfig.DB_PASSWORD,
-  database: DatabaseServerConfig.DB_DATABASE,
-  logging: DatabaseServerConfig.DB_LOGGING,
+  type: DatabaseServerConfig.DIALECT as any,
+  host: DatabaseServerConfig.HOST,
+  port: +(DatabaseServerConfig.PORT || 3306),
+  username: DatabaseServerConfig.USER,
+  password: DatabaseServerConfig.PASSWORD,
+  database: DatabaseServerConfig.DATABASE,
+  logging: DatabaseServerConfig.LOGGING,
   charset: 'utf8mb4_unicode_ci',
   entities: [
     path.normalize(__dirname + `/../../typeorm/entities/*.entity{.ts,.js}`),
@@ -27,8 +27,8 @@ const defaultConfig: DataSourceOptions = {
 
 const testConfig: DataSourceOptions = {
   ...defaultConfig,
-  database: DatabaseServerConfig.DB_DATABASE,
-  logging: DatabaseServerConfig.DB_LOGGING,
+  database: DatabaseServerConfig.DATABASE,
+  logging: DatabaseServerConfig.LOGGING,
   synchronize: true,
 };
 

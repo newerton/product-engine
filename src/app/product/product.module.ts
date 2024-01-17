@@ -41,7 +41,7 @@ const repositories = [ProductTypeORMRepository];
           client: {
             clientId: 'product',
             brokers: [
-              `${KafkaServerConfig.KAFKA_BROKER_HOST}:${KafkaServerConfig.KAFKA_BROKER_PORT}`,
+              `${KafkaServerConfig.BROKER_HOST}:${KafkaServerConfig.BROKER_PORT}`,
             ],
           },
           consumer: {

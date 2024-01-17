@@ -6,9 +6,9 @@ import {
 } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 
-import { RemoteProcedureCallExceptionFilter } from '@app/@common/application/exceptions/filter/rpc-exception.filter';
+import { RemoteProcedureCallExceptionFilter } from '@app/@common/application/exceptions/filter';
 
-import { ProductUpdateUseCase } from '../use-cases/product-update.use-case';
+import { ProductUpdateUseCase } from '../use-cases';
 
 @Controller()
 @UseFilters(new RemoteProcedureCallExceptionFilter())

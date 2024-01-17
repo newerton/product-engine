@@ -6,10 +6,10 @@ import {
 } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 
-import { RemoteProcedureCallExceptionFilter } from '@app/@common/application/exceptions/filter/rpc-exception.filter';
+import { RemoteProcedureCallExceptionFilter } from '@app/@common/application/exceptions/filter';
 
-import { ProductFindAllControllerOutput } from '../dto/product-find-all.dto';
-import { ProductFindAllUseCase } from '../use-cases/product-find-all.use-case';
+import { ProductFindAllControllerOutput } from '../dto';
+import { ProductFindAllUseCase } from '../use-cases';
 
 @Controller()
 @UseFilters(new RemoteProcedureCallExceptionFilter())
