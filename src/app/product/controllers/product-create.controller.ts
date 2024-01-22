@@ -23,7 +23,7 @@ export class ProductCreateController {
   async create(
     @Payload(new ZodValidationPipe(new ProductCreateSchemaValidation()))
     payload: ProductCreateInput,
-  ): Promise<void> {
+  ) {
     return this.useCase.execute(payload);
   }
 }
