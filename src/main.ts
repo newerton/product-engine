@@ -36,9 +36,7 @@ async function bootstrap() {
     options: {
       client: {
         clientId: 'product',
-        brokers: [
-          `${KafkaServerConfig.BROKER_HOST}:${KafkaServerConfig.BROKER_PORT}`,
-        ],
+        brokers: KafkaServerConfig.brokers(),
       },
       consumer: {
         groupId: 'product-consumer',

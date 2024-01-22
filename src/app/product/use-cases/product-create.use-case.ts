@@ -11,14 +11,17 @@ import { ProductCreateInput } from '../dto/product-create.dto';
 export class ProductCreateUseCase {
   constructor(
     private readonly productRepository: ProductTypeORMRepository,
-    @Inject('PRODUCT_SERVICE_KAFKA') private readonly clientKafka: ClientKafka,
+
+    @Inject('PRODUCT_SERVICE_KAFKA')
+    private readonly clientKafka: ClientKafka,
   ) {}
 
-  async execute(data: ProductCreateInput): Promise<void> {
+  async execute(data: ProductCreateInput) {
     try {
-      const { id } = await this.productRepository.save(data);
-      if (id) {
+      const product = await this.productRepository.save(data);
+      if (product) {
         this.clientKafka.emit('product_created', data);
+        return product;
       } else {
         throw Exception.new({
           code: Code.BAD_REQUEST.code,
