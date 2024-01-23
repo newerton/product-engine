@@ -1,26 +1,27 @@
-import {
-  ClassSerializerInterceptor,
-  Controller,
-  Get,
-  HttpCode,
-  HttpStatus,
-  Param,
-  UseFilters,
-  UseInterceptors,
-} from '@nestjs/common';
+import { Controller, Get, HttpCode, HttpStatus, Param } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiBadRequestResponse,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+  ApiUnprocessableEntityResponse,
+} from '@nestjs/swagger';
 
-import { RemoteProcedureCallExceptionFilter } from '@app/@common/application/exceptions/filter';
+import { ErrorSchema } from '@app/@common/application/documentations/openapi/swagger';
 import { ZodValidationPipe } from '@app/@common/application/pipes';
 import { UUIDSchemaValidation } from '@app/@common/application/validations';
 
 import { GetOneProductsOutputDto } from '../dto';
 import { ProductGetOneUseCase } from '../use-cases';
 
-@Controller()
-@UseFilters(new RemoteProcedureCallExceptionFilter())
-@UseInterceptors(ClassSerializerInterceptor)
+@Controller('products')
+@ApiTags('Products')
+@ApiBadRequestResponse({ description: 'Bad Request', type: ErrorSchema })
+@ApiUnprocessableEntityResponse({
+  description: 'Unprocessable Entity',
+  type: ErrorSchema,
+})
 export class ProductGetOneController {
   constructor(private readonly useCase: ProductGetOneUseCase) {}
 
