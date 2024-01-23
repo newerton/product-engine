@@ -1,9 +1,40 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { CacheModule } from '@nestjs/cache-manager';
+import { Module, Provider } from '@nestjs/common';
+import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 
-import { typeormConfig } from '@app/@common/infrastructure/persistence/database/typeorm/config/typeorm.config';
+import {
+  RemoteProcedureCallExceptionFilter,
+  ZodValidationExceptionFilter,
+} from '@app/@common/application/exceptions/filter';
+import { HttpLoggingInterceptor } from '@app/@common/application/interceptors';
 import { ProductModule } from '@app/product/product.module';
+import { ApiServerConfig } from '@core/@shared/infrastructure/config/env';
+
+const filterProviders: Provider[] = [
+  {
+    provide: APP_FILTER,
+    useClass: RemoteProcedureCallExceptionFilter,
+  },
+  {
+    provide: APP_FILTER,
+    useClass: ZodValidationExceptionFilter,
+  },
+];
+
+if (ApiServerConfig.LOG_ENABLE) {
+  filterProviders.push({
+    provide: APP_INTERCEPTOR,
+    useClass: HttpLoggingInterceptor,
+  });
+}
+
 @Module({
-  imports: [TypeOrmModule.forRoot(typeormConfig), ProductModule],
+  imports: [
+    CacheModule.register({
+      isGlobal: true,
+    }),
+    ProductModule,
+  ],
+  providers: [...filterProviders],
 })
 export class MainModule {}

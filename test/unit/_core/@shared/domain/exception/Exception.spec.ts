@@ -2,6 +2,18 @@ import { Code } from '@core/@shared/domain/error/Code';
 import { Exception } from '@core/@shared/domain/exception/Exception';
 
 describe('Exception', () => {
+  describe('constructor', () => {
+    test('When input wrong code, expect it creates Exception instance with default parameters', () => {
+      const exception: Exception<void> = Exception.new({
+        code: 1981,
+      });
+      expect(exception.code).toBe(Code.INTERNAL_SERVER_ERROR.code);
+      expect(exception.error).toBe(Code.INTERNAL_SERVER_ERROR.message);
+      expect(exception.message).toBe('Status code not found');
+      expect(exception.data).toBeUndefined();
+    });
+  });
+
   describe('new', () => {
     test('When input data & overrideMessage args are empty, expect it creates Exception instance with default parameters', () => {
       const exception: Exception<void> = Exception.new({

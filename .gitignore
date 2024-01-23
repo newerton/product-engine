@@ -1,11 +1,15 @@
 # compiled output
 /dist
 /node_modules
+.env
+!/src/_core/@shared/infrastructure/adapters/persistence/database/prisma/.env
+yarn.lock
 
 # Logs
 logs
 *.log
 npm-debug.log*
+pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
@@ -34,10 +38,4 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 # Plugins - VSCode
-/.history
-
-# Environment file
-.env
-
-#Lock files
-yarn.lock
+.history/

@@ -32,7 +32,10 @@ export class DatabaseServerConfig {
     .required()
     .asString();
 
-  public static readonly DATABASE: string = env.get('DB_DATABASE').asString();
+  public static readonly DATABASE: string = env
+    .get('DB_DATABASE')
+    .required()
+    .asString();
 
   public static readonly LOGGING: boolean = env
     .get('DB_LOGGING')
