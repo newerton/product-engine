@@ -1,4 +1,6 @@
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Inject, Injectable } from '@nestjs/common';
+import { Cache } from 'cache-manager';
 
 import { ProductsDITokens } from '@core/products/domain/di';
 import {
@@ -7,12 +9,16 @@ import {
 } from '@core/products/domain/port/repository';
 
 import { GetOneProductsOutputDto, ProductUpdateInputDto } from '../dto';
+import { productClearCache } from '../utils';
 
 @Injectable()
 export class ProductUpdateUseCase {
   constructor(
     @Inject(ProductsDITokens.ProductsRepository)
     private readonly repository: ProductsRepository,
+
+    @Inject(CACHE_MANAGER)
+    private cacheManager: Cache,
   ) {}
 
   async execute(
@@ -49,6 +55,9 @@ export class ProductUpdateUseCase {
       payload.status = data.status;
     }
 
-    return this.repository.update(id, payload);
+    const response = await this.repository.update(id, payload);
+    await productClearCache(this.cacheManager);
+
+    return response;
   }
 }

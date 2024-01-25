@@ -1,5 +1,12 @@
-import { CacheTTL } from '@nestjs/cache-manager';
-import { Controller, Get, HttpCode, HttpStatus, Query } from '@nestjs/common';
+import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
+import {
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Query,
+  UseInterceptors,
+} from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import {
   ApiBadRequestResponse,
@@ -24,6 +31,7 @@ import { ProductQueryFilterSchemaValidation } from '../validations';
   description: 'Unprocessable Entity',
   type: ErrorSchema,
 })
+@UseInterceptors(CacheInterceptor)
 export class ProductListAllController {
   constructor(private readonly useCase: ProductListAllUseCase) {}
 

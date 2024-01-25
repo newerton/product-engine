@@ -10,7 +10,7 @@ export class ProductCreateInputDto {
   @ApiProperty({ type: 'number' })
   price: number;
 
-  @ApiProperty({ type: 'string' })
+  @ApiProperty({ type: 'number' })
   discount_percentage: number;
 
   @ApiProperty({ type: 'string' })

@@ -54,8 +54,9 @@ async function bootstrap() {
 
   applySwagger(app);
 
-  await app.startAllMicroservices().then(() => {
-    // lightship.signalReady();
+  await app.listen(ApiServerConfig.PORT).then(async () => {
+    await app.startAllMicroservices();
+    lightship.signalReady();
     logger.log(
       `🚀 product-engine is running in http://localhost:${ApiServerConfig.PORT}`,
     );

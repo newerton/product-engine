@@ -5,10 +5,10 @@ import { CreateValidationSchema } from '@app/@common/application/validators/zod/
 export class ProductCreateSchemaValidation implements CreateValidationSchema {
   createSchema(): z.ZodSchema {
     return z.object({
-      title: z.string({
-        description: 'Product title',
-        invalid_type_error: 'Title must be a string',
-        required_error: 'Title is required',
+      name: z.string({
+        description: 'Product name',
+        invalid_type_error: 'Name must be a string',
+        required_error: 'Name is required',
       }),
       description: z.string({
         description: 'Product description',
