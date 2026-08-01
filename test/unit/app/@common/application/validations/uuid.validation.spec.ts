@@ -1,6 +1,5 @@
-import z from 'zod';
-
 import { UUIDSchemaValidation } from '@app/@common/application/validations';
+import z from 'zod';
 
 describe('UUIDSchemaValidation', () => {
   let uuidSchemaValidation: UUIDSchemaValidation;

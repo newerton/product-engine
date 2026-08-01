@@ -1,9 +1,3 @@
-import { CacheModule } from '@nestjs/cache-manager';
-import { Module, Provider } from '@nestjs/common';
-import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
-import { redisStore } from 'cache-manager-redis-yet';
-import { RedisClientOptions } from 'redis';
-
 import {
   HttpExceptionFilter,
   RemoteProcedureCallExceptionFilter,
@@ -15,6 +9,11 @@ import {
   ApiServerConfig,
   RedisServerConfig,
 } from '@core/@shared/infrastructure/config/env';
+import { CacheModule } from '@nestjs/cache-manager';
+import { Module, Provider } from '@nestjs/common';
+import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
+import { redisStore } from 'cache-manager-redis-yet';
+import { RedisClientOptions } from 'redis';
 
 const filterProviders: Provider[] = [
   {

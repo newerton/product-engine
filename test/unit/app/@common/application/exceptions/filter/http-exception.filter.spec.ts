@@ -1,3 +1,7 @@
+import { HttpExceptionFilter } from '@app/@common/application/exceptions/filter/http-exception.filter';
+import { Code, CodeDescription } from '@core/@shared/domain/error/Code';
+import { Exception } from '@core/@shared/domain/exception/Exception';
+import { ApiServerConfig } from '@core/@shared/infrastructure/config/env';
 import {
   HttpException,
   HttpStatus,
@@ -5,11 +9,6 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-
-import { HttpExceptionFilter } from '@app/@common/application/exceptions/filter/http-exception.filter';
-import { Code, CodeDescription } from '@core/@shared/domain/error/Code';
-import { Exception } from '@core/@shared/domain/exception/Exception';
-import { ApiServerConfig } from '@core/@shared/infrastructure/config/env';
 
 export interface AxiosResponse {
   data: any;

@@ -1,12 +1,11 @@
-import { Module, Provider } from '@nestjs/common';
-import { ClientsModule, Transport } from '@nestjs/microservices';
-import { PrismaClient } from '@prisma/client';
-
 import { DatabaseModule } from '@app/@common/infrastructure/adapters/persistente/database/database.module';
 import { PrismaDatabaseAdapter } from '@app/@common/infrastructure/adapters/persistente/database/prisma/prisma-database.adapter';
 import { KafkaServerConfig } from '@core/@shared/infrastructure/config/env/kafka-server.config';
 import { ProductsDITokens } from '@core/products/domain/di';
 import { ProductsPrismaRepositoryAdapter } from '@core/products/infrastructure/adapters/persistence/database/prisma/repository';
+import { Module, Provider } from '@nestjs/common';
+import { ClientsModule, Transport } from '@nestjs/microservices';
+import { PrismaClient } from '@prisma/client';
 
 import {
   ProductCreateController,

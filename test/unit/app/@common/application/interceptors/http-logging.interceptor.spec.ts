@@ -1,8 +1,7 @@
+import { HttpLoggingInterceptor } from '@app/@common/application/interceptors/http-logging.interceptor';
 import { Logger } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Request } from 'express';
-
-import { HttpLoggingInterceptor } from '@app/@common/application/interceptors/http-logging.interceptor';
 
 const mockAppLoggerService = {
   info: jest.fn(),

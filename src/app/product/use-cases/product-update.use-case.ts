@@ -1,12 +1,11 @@
-import { CACHE_MANAGER } from '@nestjs/cache-manager';
-import { Inject, Injectable } from '@nestjs/common';
-import { Cache } from 'cache-manager';
-
 import { ProductsDITokens } from '@core/products/domain/di';
 import {
   ProductsRepository,
   ProductsRepositoryInput,
 } from '@core/products/domain/port/repository';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Inject, Injectable } from '@nestjs/common';
+import { Cache } from 'cache-manager';
 
 import { GetOneProductsOutputDto, ProductUpdateInputDto } from '../dto';
 import { productClearCache } from '../utils';

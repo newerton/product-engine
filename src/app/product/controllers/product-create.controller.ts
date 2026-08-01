@@ -1,3 +1,5 @@
+import { ErrorSchema } from '@app/@common/application/documentations/openapi/swagger';
+import { ZodValidationPipe } from '@app/@common/application/pipes';
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import {
@@ -8,9 +10,6 @@ import {
   ApiTags,
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
-
-import { ErrorSchema } from '@app/@common/application/documentations/openapi/swagger';
-import { ZodValidationPipe } from '@app/@common/application/pipes';
 
 import { ProductCreateInputDto, ProductCreateOutputDto } from '../dto';
 import { ProductCreateUseCase } from '../use-cases';

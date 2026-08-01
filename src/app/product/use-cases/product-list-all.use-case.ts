@@ -1,7 +1,6 @@
-import { Inject, Injectable } from '@nestjs/common';
-
 import { ProductsDITokens } from '@core/products/domain/di';
 import { ProductsRepository } from '@core/products/domain/port/repository';
+import { Inject, Injectable } from '@nestjs/common';
 
 import { ListAllProductsPagedOutputDto, ProductsQueryFiltersDto } from '../dto';
 

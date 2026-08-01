@@ -1,6 +1,5 @@
-import { PrismaClient } from '@prisma/client';
-
 import { prisma } from '@core/@shared/infrastructure/adapters/persistence/database/prisma';
+import { PrismaClient } from '@prisma/client';
 
 jest.mock('@prisma/client');
 

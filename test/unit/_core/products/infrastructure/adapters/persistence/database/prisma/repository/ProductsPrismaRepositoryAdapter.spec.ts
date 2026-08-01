@@ -1,5 +1,3 @@
-import { PrismaClient } from '@prisma/client';
-
 import { Code } from '@core/@shared/domain/error/Code';
 import { Exception } from '@core/@shared/domain/exception/Exception';
 import {
@@ -8,6 +6,7 @@ import {
   ProductsRepositoryOutput,
 } from '@core/products/domain/port/repository';
 import { ProductsPrismaRepositoryAdapter } from '@core/products/infrastructure/adapters/persistence/database/prisma/repository';
+import { PrismaClient } from '@prisma/client';
 import {
   generateProductInput,
   generateProductOutput,

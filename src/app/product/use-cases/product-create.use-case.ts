@@ -1,8 +1,3 @@
-import { CACHE_MANAGER } from '@nestjs/cache-manager';
-import { Inject, Injectable } from '@nestjs/common';
-import { ClientKafka } from '@nestjs/microservices';
-import { Cache } from 'cache-manager';
-
 import { Code } from '@core/@shared/domain/error/Code';
 import { Exception } from '@core/@shared/domain/exception/Exception';
 import { ProductsDITokens } from '@core/products/domain/di';
@@ -11,6 +6,10 @@ import {
   ProductsRepository,
   ProductsRepositoryInput,
 } from '@core/products/domain/port/repository';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Inject, Injectable } from '@nestjs/common';
+import { ClientKafka } from '@nestjs/microservices';
+import { Cache } from 'cache-manager';
 
 import { ProductCreateInputDto } from '../dto';
 import { productClearCache } from '../utils';
@@ -45,7 +44,7 @@ export class ProductCreateUseCase {
 
       await productClearCache(this.cacheManager);
       return product;
-    } catch (err) {
+    } catch (_err) {
       throw Exception.new({
         code: Code.BAD_REQUEST.code,
         overrideMessage: 'Product not created',

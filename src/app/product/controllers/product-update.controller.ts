@@ -1,3 +1,6 @@
+import { ErrorSchema } from '@app/@common/application/documentations/openapi/swagger';
+import { ZodValidationPipe } from '@app/@common/application/pipes';
+import { UUIDSchemaValidation } from '@app/@common/application/validations';
 import {
   Body,
   Controller,
@@ -14,10 +17,6 @@ import {
   ApiTags,
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
-
-import { ErrorSchema } from '@app/@common/application/documentations/openapi/swagger';
-import { ZodValidationPipe } from '@app/@common/application/pipes';
-import { UUIDSchemaValidation } from '@app/@common/application/validations';
 
 import { GetOneProductsOutputDto, ProductUpdateInputDto } from '../dto';
 import { ProductUpdateUseCase } from '../use-cases';

@@ -1,3 +1,6 @@
+import { applySwagger } from '@app/@common/application/config';
+import { KafkaServerConfig } from '@core/@shared/infrastructure/config/env';
+import { ApiServerConfig } from '@core/@shared/infrastructure/config/env/api-server.config';
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
@@ -7,17 +10,13 @@ import {
   createLightship,
 } from 'lightship';
 
-import { applySwagger } from '@app/@common/application/config';
-import { KafkaServerConfig } from '@core/@shared/infrastructure/config/env';
-import { ApiServerConfig } from '@core/@shared/infrastructure/config/env/api-server.config';
-
 import { MainModule } from './main.module';
 
 const logger = new Logger('Main');
 
 async function bootstrap() {
   const configuration: ConfigurationInput = {
-    detectKubernetes: ApiServerConfig.ENV !== 'production' ? false : true,
+    detectKubernetes: ApiServerConfig.ENV === 'production',
     gracefulShutdownTimeout: 30 * 1000,
     port: ApiServerConfig.LIGHTSHIP_PORT,
   };

@@ -1,5 +1,3 @@
-import { Prisma, PrismaClient } from '@prisma/client';
-
 import { Code } from '@core/@shared/domain/error/Code';
 import { Exception } from '@core/@shared/domain/exception/Exception';
 import { prisma } from '@core/@shared/infrastructure/adapters/persistence/database/prisma';
@@ -10,6 +8,7 @@ import {
   ProductsRepositoryInput,
   ProductsRepositoryOutput,
 } from '@core/products/domain/port/repository/ProductsRepository';
+import { Prisma, PrismaClient } from '@prisma/client';
 
 export class ProductsPrismaRepositoryAdapter implements ProductsRepository {
   constructor(private model: PrismaClient['products']) {}

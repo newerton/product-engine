@@ -1,6 +1,5 @@
-import { z } from 'zod';
-
 import { QueryFilterSchema } from '@app/@common/application/validators/query-params/query-filter.schema.validation';
+import { z } from 'zod';
 
 describe('QueryFilterSchema', () => {
   let schema: QueryFilterSchema;

@@ -1,8 +1,7 @@
+import { HttpCacheInterceptor } from '@app/@common/application/interceptors';
 import { CacheModule } from '@nestjs/cache-manager';
 import { Reflector } from '@nestjs/core';
 import { Test } from '@nestjs/testing';
-
-import { HttpCacheInterceptor } from '@app/@common/application/interceptors';
 
 const request = {
   method: 'GET',

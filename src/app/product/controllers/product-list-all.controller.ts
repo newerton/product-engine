@@ -1,3 +1,5 @@
+import { ErrorSchema } from '@app/@common/application/documentations/openapi/swagger';
+import { ZodValidationPipe } from '@app/@common/application/pipes';
 import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
 import {
   Controller,
@@ -16,9 +18,6 @@ import {
   ApiTags,
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
-
-import { ErrorSchema } from '@app/@common/application/documentations/openapi/swagger';
-import { ZodValidationPipe } from '@app/@common/application/pipes';
 
 import { ListAllProductsPagedOutputDto, ProductsQueryFiltersDto } from '../dto';
 import { ProductListAllUseCase } from '../use-cases';

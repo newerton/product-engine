@@ -1,10 +1,9 @@
-import { Schema, ZodError, ZodIssue } from 'zod';
-
 import {
   ZodValidationException,
   ZodValidationPipe,
 } from '@app/@common/application/pipes';
 import { CreateValidationSchema } from '@app/@common/application/validators/zod/schemas';
+import { Schema, ZodError, ZodIssue } from 'zod';
 
 describe('ZodValidationPipe', () => {
   let zodValidationPipe: ZodValidationPipe;

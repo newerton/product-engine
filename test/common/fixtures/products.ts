@@ -1,5 +1,4 @@
-import { randomUUID } from 'crypto';
-
+import { randomUUID } from 'node:crypto';
 import { ProductsStatusEnum } from '@core/products/domain/entities';
 import {
   ProductsRepositoryInput,

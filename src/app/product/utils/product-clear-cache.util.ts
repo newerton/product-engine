@@ -1,6 +1,5 @@
-import { Cache } from 'cache-manager';
-
 import { PRODUCTS_KEY } from '@app/@common/application/cache/cache.contant';
+import { Cache } from 'cache-manager';
 
 export const productClearCache = async (cacheManager: Cache) => {
   const keys: string[] = await cacheManager.store.keys();
