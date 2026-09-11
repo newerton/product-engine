@@ -38,21 +38,21 @@
     "redis": "^6.2.1",
     "rxjs": "^7.8.2",
     "swagger-themes": "^1.4.3",
-    "zod": "^4.5.4"
+    "zod": "^4.6.2"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.12",
+    "@biomejs/biome": "^2.5.13",
     "@commitlint/cli": "^21.2.2",
     "@commitlint/config-conventional": "^21.2.2",
     "@nestjs/cli": "^11.0.24",
     "@nestjs/schematics": "^11.1.0",
     "@nestjs/testing": "^11.2.3",
     "@swc/cli": "^0.8.1",
-    "@swc/core": "^1.16.1",
+    "@swc/core": "^1.16.2",
     "@swc/jest": "^0.2.39",
     "@types/express": "^5.0.6",
     "@types/jest": "^30.0.0",
-    "@types/node": "^26.4.1",
+    "@types/node": "^26.5.1",
     "@types/supertest": "^7.2.1",
     "husky": "^9.1.7",
     "jest": "^30.5.1",
@@ -69,12 +69,9 @@
     "schema": "./src/_core/@shared/infrastructure/adapters/persistence/database/prisma/schema.prisma"
   },
   "overrides": {
-    "@hono/node-server": "^1.19.14",
-    "js-yaml": "^5.2.3",
-    "multer": "^2.1.2",
-    "brace-expansion": "^5.0.9",
     "deepmerge-ts": "^8.0.2",
-    "mysql2": "^3.24.3"
+    "multer": "^2.3.0",
+    "mysql2": "^3.24.4"
   },
   "allowScripts": {
     "unrs-resolver@1.12.2": true,
